@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloDadTech — projects, tinkering, and tech from a solo dad who builds things.">
+  <title>SoloDadTech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="#top">solodad<span>tech</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <p class="kicker">// hello, world</p>
+      <h1>Building tech,<br>raising a family,<br><span class="accent">one commit at a time.</span></h1>
+      <p class="lede">
+        Welcome to SoloDadTech — a home for the projects, experiments,
+        and lessons learned from juggling code and fatherhood.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projects">See what I'm building</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </section>
+
+    <section id="about" class="section container">
+      <h2><span class="hash">#</span> About</h2>
+      <p>
+        I'm a solo dad who loves technology. This site is where I share the
+        things I build, the tools I use, and what I learn along the way.
+        Expect projects, write-ups, and the occasional hard-won parenting-meets-tech tip.
+      </p>
+    </section>
+
+    <section id="projects" class="section container">
+      <h2><span class="hash">#</span> Projects</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Coming soon</h3>
+          <p>First project write-up is on the way. Check back shortly.</p>
+          <p class="tag">in progress</p>
+        </article>
+        <article class="card">
+          <h3>This website</h3>
+          <p>A hand-built static site, version-controlled on GitHub and deployed automatically on every push.</p>
+          <p class="tag">HTML · CSS · GitHub Pages</p>
+        </article>
+        <article class="card">
+          <h3>Ideas welcome</h3>
+          <p>Have something you'd like to see built or written about? Reach out below.</p>
+          <p class="tag">open</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <h2><span class="hash">#</span> Contact</h2>
+      <p>
+        The best way to reach me is by email:
+        <a class="email" href="mailto:solodadtech@gmail.com">solodadtech@gmail.com</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> SoloDadTech · Built by hand, deployed with git push</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
