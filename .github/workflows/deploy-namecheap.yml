@@ -1,0 +1,33 @@
+# OPTIONAL: deploys the site to Namecheap shared hosting (cPanel) over FTPS.
+#
+# Only needed if you choose to host on Namecheap's servers instead of GitHub Pages.
+# To activate:
+#   1. In cPanel, create an FTP account scoped to public_html.
+#   2. In the GitHub repo: Settings -> Secrets and variables -> Actions, add:
+#        FTP_SERVER   (e.g. ftp.solodadtech.com or the server hostname from cPanel)
+#        FTP_USERNAME
+#        FTP_PASSWORD
+#   3. Change `workflow_dispatch` below to also trigger on push, or run it
+#      manually from the Actions tab.
+name: Deploy to Namecheap hosting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/README.md
