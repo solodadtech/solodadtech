@@ -4,7 +4,8 @@ Static website for [solodadtech.com](https://solodadtech.com), hosted on GitHub 
 
 ## How it works
 
-- Plain HTML + CSS, no build step.
+- Plain HTML styled with Tailwind CSS (via CDN), no build step.
+- Logo assets live in `assets/` (`logo-light.png` for light mode, `logo-dark.png` for dark mode).
 - Pushing to `main` automatically redeploys the live site (GitHub Pages).
 - `CNAME` file tells GitHub Pages to serve the site at the custom domain.
 - DNS is managed at Namecheap and points to GitHub Pages.
