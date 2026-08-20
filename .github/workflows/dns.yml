@@ -20,9 +20,21 @@ jobs:
       # NOTE: secret name has a typo (CLOUDEDLARE); mapped here so it Just Works.
       - name: Prepare token
         run: |
-          CLEANED=$(printf '%s' "${{ secrets.CLOUDEDLARE_API_TOKEN }}" | tr -d '[:space:]')
+          # keep only characters legal in a Cloudflare token (drops whitespace,
+          # smart quotes, zero-width unicode, and other paste artifacts)
+          CLEANED=$(printf '%s' "${{ secrets.CLOUDEDLARE_API_TOKEN }}" | tr -cd 'A-Za-z0-9_-')
           echo "::add-mask::$CLEANED"
+          echo "Token length after cleanup: ${#CLEANED} (Cloudflare API tokens are typically 40)"
           echo "CLOUDFLARE_API_TOKEN=$CLEANED" >> "$GITHUB_ENV"
+
+      - name: Verify token with Cloudflare
+        run: |
+          status=$(curl -s -o /tmp/verify.json -w "%{http_code}" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            https://api.cloudflare.com/client/v4/user/tokens/verify)
+          echo "Cloudflare token verify HTTP status: $status"
+          head -c 500 /tmp/verify.json; echo
+          test "$status" = "200"
 
       - name: Validate config
         run: >
