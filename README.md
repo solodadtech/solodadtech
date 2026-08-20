@@ -8,11 +8,14 @@ Static website for [solodadtech.com](https://solodadtech.com), hosted on GitHub 
 - Logo assets live in `assets/` (`logo-light.png` for light mode, `logo-dark.png` for dark mode).
 - Pushing to `main` automatically redeploys the live site (GitHub Pages).
 - `CNAME` file tells GitHub Pages to serve the site at the custom domain.
-- DNS is managed at Namecheap and points to GitHub Pages.
+- DNS is managed **as code** — see [DNS.md](DNS.md). Records live in
+  [`dns/dnsconfig.js`](dns/dnsconfig.js) and are applied to Cloudflare
+  automatically by the [Sync DNS action](.github/workflows/dns.yml).
+  Namecheap remains the domain registrar.
 
 ## Editing the site
 
-1. Edit `index.html` / `styles.css`.
+1. Edit `index.html` (styling is Tailwind CSS utility classes, via CDN).
 2. Commit and push:
 
 ```bash
@@ -21,12 +24,6 @@ git add -A && git commit -m "feat: update site" && git push
 
 The live site updates within a minute or two.
 
-## DNS records (Namecheap → Advanced DNS)
+## Adding a subdomain for a new app
 
-| Type  | Host | Value                 |
-|-------|------|-----------------------|
-| A     | @    | 185.199.108.153       |
-| A     | @    | 185.199.109.153       |
-| A     | @    | 185.199.110.153       |
-| A     | @    | 185.199.111.153       |
-| CNAME | www  | solodadtech.github.io |
+One line in [`dns/dnsconfig.js`](dns/dnsconfig.js) + push. See [DNS.md](DNS.md).
