@@ -21,8 +21,10 @@ D("solodadtech.com", REG_NONE, DnsProvider(DSP_CLOUDFLARE),
   A("@", "185.199.111.153"),
   CNAME("www", "solodadtech.github.io."),
 
-  // ── Future apps: add one line per subdomain, e.g. ─────────────────────
-  // CNAME("corkboard", "solodadtech.github.io."),   // + CNAME file in that repo
+  // ── Apps ──────────────────────────────────────────────────────────────
+  // Corkboard web app — Firebase Hosting (project: corkboard-escanaba)
+  A("corkboard", "199.36.158.100"),
+  TXT("corkboard", "hosting-site=corkboard-escanaba"),
 
   // ── Email: Namecheap cPanel mail (do not remove while email is in use) ─
   MX("@", 5, "mx1-hosting.jellyfish.systems."),
