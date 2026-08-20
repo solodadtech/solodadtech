@@ -1,5 +1,5 @@
 # Applies dns/dnsconfig.js to Cloudflare whenever it changes on main.
-# Requires the CLOUDFLARE_API_TOKEN repo secret (see DNS.md for one-time setup).
+# Requires the Cloudflare API token repo secret (see DNS.md for one-time setup).
 name: Sync DNS
 
 on:
@@ -11,8 +11,18 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+
+      # Strip any accidental whitespace/newlines from the pasted secret —
+      # a stray newline makes an invalid Authorization header.
+      # NOTE: secret name has a typo (CLOUDEDLARE); mapped here so it Just Works.
+      - name: Prepare token
+        run: |
+          CLEANED=$(printf '%s' "${{ secrets.CLOUDEDLARE_API_TOKEN }}" | tr -d '[:space:]')
+          echo "::add-mask::$CLEANED"
+          echo "CLOUDFLARE_API_TOKEN=$CLEANED" >> "$GITHUB_ENV"
 
       - name: Validate config
         run: >
@@ -20,18 +30,12 @@ jobs:
           stackexchange/dnscontrol check
 
       - name: Preview changes
-        env:
-          # secret was saved under a typo'd name; mapped here so it Just Works
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDEDLARE_API_TOKEN }}
         run: >
           docker run --rm -v "$PWD/dns:/dns" -w /dns
           -e CLOUDFLARE_API_TOKEN
           stackexchange/dnscontrol preview
 
       - name: Apply changes
-        env:
-          # secret was saved under a typo'd name; mapped here so it Just Works
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDEDLARE_API_TOKEN }}
         run: >
           docker run --rm -v "$PWD/dns:/dns" -w /dns
           -e CLOUDFLARE_API_TOKEN
